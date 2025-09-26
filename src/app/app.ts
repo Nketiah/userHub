@@ -4,7 +4,7 @@ import { NavigationBar } from './shared/reusableComponent/navigation-bar/navigat
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NavigationBar],
+  imports: [NavigationBar],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

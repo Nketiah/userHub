@@ -4,11 +4,31 @@ import { HttpClient } from '@angular/common/http';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 
+// Angular Material imports
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule, } from '@angular/material/grid-list';
+
 
 @Component({
   selector: 'app-typico-users',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatTableModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatGridListModule,
+],
+
   templateUrl: './typico-users.html',
   styleUrl: './typico-users.css'
 })
@@ -47,42 +67,37 @@ export class TypicoUsers implements OnInit {
       });
   }
 
-  /** Open form for add/edit */
   toggleForm() {
     this.showForm = !this.showForm;
-    if (!this.showForm) {
-      this.resetForm();
-    }
+    if (!this.showForm) this.resetForm();
   }
 
-  /** POST (Add new user) */
- addUser() {
-  this.http.post<any>(this.apiUrl, this.formData)
-    .pipe(takeUntilDestroyed(this.destroyRef))
-    .subscribe({
-      next: (newUser) => {
-        newUser.id = this.users.length + 1;
+  addUser() {
+    this.http.post<any>(this.apiUrl, this.formData)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (newUser) => {
+          newUser.id = this.users.length + 1;
+          this.users = [newUser, ...this.users];
+          this.toggleForm();
+        },
+        error: (err) => console.error('Error adding user:', err)
+      });
+  }
 
-        this.users = [newUser, ...this.users];
-
-        this.toggleForm();
-      },
-      error: (err) => console.error('Error adding user:', err)
-    });
-}
-
-
-  /** PUT (Update user) */
   updateUser() {
     if (this.editingUserId == null) return;
-
     this.http.put<any>(`${this.apiUrl}/${this.editingUserId}`, this.formData)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (updatedUser) => {
           const idx = this.users.findIndex(u => u.id === this.editingUserId);
           if (idx > -1) {
-            this.users[idx] = { ...updatedUser, id: this.editingUserId, address: { city: this.formData.city } };
+            this.users[idx] = {
+              ...updatedUser,
+              id: this.editingUserId,
+              address: { city: this.formData.city }
+            };
           }
           this.toggleForm();
         },
@@ -90,25 +105,21 @@ export class TypicoUsers implements OnInit {
       });
   }
 
-  /** DELETE User */
   onDelete(user: any) {
     this.http.delete(`${this.apiUrl}/${user.id}`)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: () => {
-          this.users = this.users.filter(u => u.id !== user.id);
-        },
+        next: () => this.users = this.users.filter(u => u.id !== user.id),
         error: (err) => console.error('Error deleting user:', err)
       });
   }
 
-  /** Open Edit Form */
   onEdit(user: any) {
     this.formData = {
       name: user.name,
       username: user.username,
       email: user.email,
-      city: user.address.city,
+      city: user.address?.city,
       phone: user.phone,
       website: user.website
     };
@@ -116,7 +127,6 @@ export class TypicoUsers implements OnInit {
     this.showForm = true;
   }
 
-  /** Handle form submit */
   onSubmit() {
     if (this.editingUserId) {
       this.updateUser();
@@ -125,18 +135,8 @@ export class TypicoUsers implements OnInit {
     }
   }
 
-  /** Reset form */
   private resetForm() {
-    this.formData = {
-      name: '',
-      username: '',
-      email: '',
-      city: '',
-      phone: '',
-      website: ''
-    };
+    this.formData = { name: '', username: '', email: '', city: '', phone: '', website: '' };
     this.editingUserId = null;
   }
 }
-
-// 

@@ -1,4 +1,4 @@
-<nav class="bg-gray-700 text-white h-[60px] flex items-center pl-10 pr-10">
+<!-- <nav class="bg-gray-700 text-white h-[60px] flex items-center pl-10 pr-10">
     <ul class="flex items-center gap-10 w-full">
         <li class="hover:underline">
             <a routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="">
@@ -24,4 +24,47 @@
         <button class="cursor-pointer hover:underline" (click)="openRegisterPage()">Register</button>
     </div>
 </nav>
+<router-outlet /> -->
+
+
+<mat-toolbar color="primary" class="navbar-toolbar">
+  <!-- Tabs Navigation -->
+  <nav mat-tab-nav-bar>
+    <a
+      mat-tab-link
+      routerLink=""
+      [routerLinkActive]="'active-link'"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      Home
+    </a>
+
+    <a
+      mat-tab-link
+      routerLink="json-placeholder-users"
+      routerLinkActive="active-link"
+    >
+      Json Placeholder Users
+    </a>
+
+    <a
+      mat-tab-link
+      routerLink="github-finder"
+      routerLinkActive="active-link"
+    >
+      Github Finder
+    </a>
+  </nav>
+
+  <span class="spacer"></span>
+
+  <button mat-stroked-button color="accent" (click)="openLoginPage()">
+    Login
+  </button>
+  <button mat-flat-button color="warn" (click)="openRegisterPage()">
+    Register
+  </button>
+</mat-toolbar>
+
 <router-outlet />
+

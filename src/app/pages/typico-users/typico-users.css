@@ -1,0 +1,29 @@
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal columns */
+  gap: 16px; /* space between fields */
+}
+
+/* Make buttons row span across both columns */
+.form-actions {
+  grid-column: 1 / -1; 
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+/* Responsive: stack into 1 column on small screens */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.p-4 {
+    padding: 1rem; /* Tailwind's p-4 is 1rem */
+}
+
+.btn-mb {
+    margin-bottom: 1rem;
+}

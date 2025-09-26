@@ -1,4 +1,26 @@
-.active {
+.active2
+ {
     text-decoration: underline;
     /* color: tomato; */
 }
+
+/* Full-width bottom border on navbar */
+.navbar-toolbar {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12); /* Material divider color */
+}
+
+/* Push right actions */
+.spacer {
+  flex: 1 1 auto;
+}
+
+/* Highlight active tab */
+.active-link {
+  font-weight: 600;
+}
+
+
+
+/* .active {
+  @apply underline font-semibold;
+} */

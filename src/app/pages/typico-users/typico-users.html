@@ -1,95 +1,128 @@
-<div class="p-6">
-  <div class="flex items-center justify-between mb-4">
-    <h2 class="text-2xl font-bold">JsonPlaceholder Users</h2>
-    <button 
-      class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
-      (click)="toggleForm()"
-      [disabled]="loading">
+<div class="p-4">
+  <div class="flex justify-between items-center mb-4">
+    <h2>JsonPlaceholder Users</h2>
+    <button   mat-raised-button color="primary  btn-mb" (click)="toggleForm()" [disabled]="loading">
       {{ showForm ? 'Back to Table' : 'Edit/Add' }}
     </button>
   </div>
 
-  <!-- ✅ Loading Spinner -->
-  <div *ngIf="loading" class="flex justify-center items-center py-10">
-    <div class="animate-spin rounded-full h-12 w-12 border-4 border-blue-600 border-t-transparent"></div>
+  <!-- Spinner -->
+  <div *ngIf="loading" class="flex justify-center py-6">
+    <mat-spinner diameter="48"></mat-spinner>
   </div>
 
-  <!-- ✅ Form -->
-  <div *ngIf="showForm && !loading" class="p-6 bg-white rounded-lg shadow-md">
-    <form (ngSubmit)="onSubmit()" class="space-y-4">
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-medium">Name</label>
-          <input [(ngModel)]="formData.name" name="name" class="w-full p-2 border rounded" required />
-        </div>
-        <div>
-          <label class="block text-sm font-medium">Username</label>
-          <input [(ngModel)]="formData.username" name="username" class="w-full p-2 border rounded" required />
-        </div>
-        <div>
-          <label class="block text-sm font-medium">Email</label>
-          <input [(ngModel)]="formData.email" name="email" type="email" class="w-full p-2 border rounded" required />
-        </div>
-        <div>
-          <label class="block text-sm font-medium">City</label>
-          <input [(ngModel)]="formData.city" name="city" class="w-full p-2 border rounded" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium">Phone</label>
-          <input [(ngModel)]="formData.phone" name="phone" class="w-full p-2 border rounded" />
-        </div>
-        <div>
-          <label class="block text-sm font-medium">Website</label>
-          <input [(ngModel)]="formData.website" name="website" class="w-full p-2 border rounded" />
-        </div>
-      </div>
-      <div class="flex justify-end gap-4">
-        <button type="button" (click)="toggleForm()" class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400">Cancel</button>
-        <button type="submit" class="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">
-          {{ editingUserId ? 'Update' : 'Save' }}
-        </button>
-      </div>
-    </form>
-  </div>
+  <!-- Form -->
+<mat-card *ngIf="showForm && !loading" class="p-4">
+  <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="form-grid">
 
-  <!-- ✅ Table -->
-  <div *ngIf="!showForm && !loading" class="overflow-x-auto rounded-lg shadow">
-    <table class="min-w-full border border-gray-200 bg-white">
-      <thead class="bg-gray-100 text-left">
-        <tr>
-          <th class="px-4 py-2 border-b">Name</th>
-          <th class="px-4 py-2 border-b">Username</th>
-          <th class="px-4 py-2 border-b">Email</th>
-          <th class="px-4 py-2 border-b">City</th>
-          <th class="px-4 py-2 border-b">Phone</th>
-          <th class="px-4 py-2 border-b">Website</th>
-          <th class="px-4 py-2 border-b text-center">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let user of users" class="hover:bg-gray-50">
-          <td class="px-4 py-2 border-b">{{ user.name }}</td>
-          <td class="px-4 py-2 border-b">{{ user.username }}</td>
-          <td class="px-4 py-2 border-b">{{ user.email }}</td>
-          <td class="px-4 py-2 border-b">{{ user.address?.city || user.city }}</td>
-          <td class="px-4 py-2 border-b">{{ user.phone }}</td>
-          <td class="px-4 py-2 border-b">
-            <a [href]="'http://' + user.website" target="_blank" class="text-blue-600 hover:underline">
-              {{ user.website }}
-            </a>
-          </td>
-          <td class="px-4 py-2 border-b text-center">
-            <button class="px-3 py-1 mr-2 text-sm bg-yellow-500 text-white rounded hover:bg-yellow-600"
-                    (click)="onEdit(user)">
-              Edit
-            </button>
-            <button class="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
-                    (click)="onDelete(user)">
-              Delete
-            </button>
-          </td>
-        </tr>
-      </tbody>
+    <!-- Name -->
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="formData.name" name="name" required #name="ngModel">
+      <mat-error *ngIf="name.invalid && name.touched">Name is required</mat-error>
+    </mat-form-field>
+
+    <!-- Username -->
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput [(ngModel)]="formData.username" name="username" required #username="ngModel">
+      <mat-error *ngIf="username.invalid && username.touched">Username is required</mat-error>
+    </mat-form-field>
+
+    <!-- Email -->
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" [(ngModel)]="formData.email" name="email" required email #email="ngModel">
+      <mat-error *ngIf="email.errors?.['required'] && email.touched">Email is required</mat-error>
+      <mat-error *ngIf="email.errors?.['email'] && email.touched">Enter a valid email</mat-error>
+    </mat-form-field>
+
+    <!-- City -->
+    <mat-form-field appearance="outline">
+      <mat-label>City</mat-label>
+      <input matInput [(ngModel)]="formData.city" name="city" required #city="ngModel">
+      <mat-error *ngIf="city.invalid && city.touched">City is required</mat-error>
+    </mat-form-field>
+
+    <!-- Phone -->
+    <mat-form-field appearance="outline">
+      <mat-label>Phone</mat-label>
+      <input matInput [(ngModel)]="formData.phone" name="phone" required #phone="ngModel">
+      <mat-error *ngIf="phone.invalid && phone.touched">Phone is required</mat-error>
+    </mat-form-field>
+
+    <!-- Website -->
+    <mat-form-field appearance="outline">
+      <mat-label>Website</mat-label>
+      <input matInput [(ngModel)]="formData.website" name="website" required #website="ngModel">
+      <mat-error *ngIf="website.invalid && website.touched">Website is required</mat-error>
+    </mat-form-field>
+
+    <!-- Buttons -->
+    <div class="form-actions">
+      <button mat-stroked-button type="button" (click)="toggleForm()">Cancel</button>
+      <button mat-raised-button color="accent" type="submit" [disabled]="userForm.invalid">
+        {{ editingUserId ? 'Update' : 'Save' }}
+      </button>
+    </div>
+  </form>
+</mat-card>
+
+
+
+  <!-- Table -->
+  <div *ngIf="!showForm && !loading">
+    <table mat-table [dataSource]="users" class="mat-elevation-z2 w-full">
+
+      <!-- Name -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
+      </ng-container>
+
+      <!-- Username -->
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef>Username</th>
+        <td mat-cell *matCellDef="let user">{{ user.username }}</td>
+      </ng-container>
+
+      <!-- Email -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
+      </ng-container>
+
+      <!-- City -->
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef>City</th>
+        <td mat-cell *matCellDef="let user">{{ user.address?.city || user.city }}</td>
+      </ng-container>
+
+      <!-- Phone -->
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef>Phone</th>
+        <td mat-cell *matCellDef="let user">{{ user.phone }}</td>
+      </ng-container>
+
+      <!-- Website -->
+      <ng-container matColumnDef="website">
+        <th mat-header-cell *matHeaderCellDef>Website</th>
+        <td mat-cell *matCellDef="let user">
+          <a [href]="'http://' + user.website" target="_blank">{{ user.website }}</a>
+        </td>
+      </ng-container>
+
+      <!-- Actions -->
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef>Actions</th>
+        <td mat-cell *matCellDef="let user">
+          <button mat-stroked-button color="accent" (click)="onEdit(user)">Edit</button>
+          <button mat-raised-button color="warn" (click)="onDelete(user)">Delete</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['name','username','email','city','phone','website','actions']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['name','username','email','city','phone','website','actions'];"></tr>
     </table>
   </div>
 </div>
