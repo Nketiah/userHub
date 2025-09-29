@@ -51,7 +51,7 @@
 
   <!-- Sub header row: left title, right actions under toolbar -->
   <div class="subbar">
-    <h2 class="t1">Clinics 123</h2>
+    <h2 class="t1">Clinics</h2>
     <div class="subbar-actions">
       <button mat-mini-fab class="act act-confirm" aria-label="Confirm" (click)="onCheckAction()">
         <mat-icon>check</mat-icon>
@@ -70,38 +70,23 @@
       </button> -->
 
 
-<!-- Search toggle -->
-<div class="search-container" *ngIf="!showSearch">
-  <button
-    mat-mini-fab
-    class="act act-search"
-    aria-label="Search"
-    (click)="toggleSearch()"
-  >
-    <mat-icon>search</mat-icon>
-  </button>
-</div>
+      <!-- Search toggle -->
+      <div class="search-container" *ngIf="!showSearch">
+        <button mat-mini-fab class="act act-search" aria-label="Search" (click)="toggleSearch()">
+          <mat-icon>search</mat-icon>
+        </button>
+      </div>
 
-<!-- Search input -->
-<div class="search-container" *ngIf="showSearch">
-  <mat-form-field appearance="outline" class="search-field custom-search">
-    <mat-label>Search clinics</mat-label>
-    <input
-      matInput
-      #searchInput
-      (keyup)="applyFilter(searchInput.value)"
-      placeholder="Type to filter..."
-    />
-    <button
-      mat-icon-button
-      matSuffix
-      aria-label="Close search"
-      (click)="toggleSearch()"
-    >
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-form-field>
-</div>
+      <!-- Search input -->
+      <div class="search-container" *ngIf="showSearch">
+        <mat-form-field appearance="outline" class="search-field custom-search">
+          <mat-label>Search clinics</mat-label>
+          <input matInput #searchInput (keyup)="applyFilter(searchInput.value)" placeholder="Type to filter..." />
+          <button mat-icon-button matSuffix aria-label="Close search" (click)="toggleSearch()">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </div>
 
 
 
@@ -121,15 +106,15 @@
 
   <!-- ✅ Tabs -->
   <mat-card class="main-card">
-  <mat-tab-group mat-stretch-tabs="false" class="custom-tabs" [(selectedIndex)]="selectedTabIndex">
+    <mat-tab-group mat-stretch-tabs="false" class="custom-tabs" [(selectedIndex)]="selectedTabIndex">
       <!-- ✅ Tab 1: Clinics List -->
-    <mat-tab label="Clinics List">
-      <div class="mt-4">
-        <!-- <mat-form-field appearance="outline" class="btn-mb" style="width: 300px;">
+      <mat-tab label="Clinics List">
+        <div class="mt-4">
+          <!-- <mat-form-field appearance="outline" class="btn-mb" style="width: 300px;">
           <mat-label>Search clinics</mat-label>
           <input matInput (keyup)="applyFilter($any($event.target).value)" placeholder="Type to filter..." />
         </mat-form-field> -->
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8   full-width-table">
+          <table mat-table [dataSource]="dataSource" class="mat-elevation-z8   full-width-table">
 
             <ng-container matColumnDef="name">
               <th mat-header-cell *matHeaderCellDef>Name</th>
@@ -178,8 +163,8 @@
 
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+          </table>
+          <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
         </div>
       </mat-tab>
 
@@ -212,7 +197,7 @@
             <mat-form-field appearance="fill">
               <mat-label>Gender</mat-label>
               <mat-select [(ngModel)]="formData.gender" name="gender" required>
-                 <mat-option value="All">All</mat-option>
+                <mat-option value="All">All</mat-option>
                 <mat-option value="Male">Male</mat-option>
                 <mat-option value="Female">Female</mat-option>
                 <mat-option value="Both">Both</mat-option>
@@ -235,7 +220,7 @@
             </mat-form-field>
 
             <!-- Actions -->
-          
+
           </form>
         </mat-card>
       </mat-tab>
