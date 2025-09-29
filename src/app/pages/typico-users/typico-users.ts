@@ -1,18 +1,19 @@
-import { Component, inject, OnInit, DestroyRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 
-// Angular Material imports
+// Angular Material
+import { MatTableModule } from '@angular/material/table';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatTableModule } from '@angular/material/table';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatCardModule } from '@angular/material/card';
-import { MatGridListModule, } from '@angular/material/grid-list';
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSelectModule } from '@angular/material/select';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @Component({
   selector: 'app-typico-users',
@@ -20,123 +21,95 @@ import { MatGridListModule, } from '@angular/material/grid-list';
   imports: [
     CommonModule,
     FormsModule,
+    MatTableModule,
     MatButtonModule,
+    MatCardModule,
     MatFormFieldModule,
     MatInputModule,
-    MatTableModule,
-    MatProgressSpinnerModule,
-    MatCardModule,
-    MatGridListModule,
-],
-
+    MatTabsModule,
+    MatCheckboxModule,
+    MatSelectModule,
+     MatToolbarModule,
+    MatIconModule,
+    MatBadgeModule,
+  ],
   templateUrl: './typico-users.html',
-  styleUrl: './typico-users.css'
+  styleUrl: './typico-users.css',
 })
-export class TypicoUsers implements OnInit {
-  private http = inject(HttpClient);
-  private destroyRef = inject(DestroyRef);
-  private apiUrl = 'https://jsonplaceholder.typicode.com/users';
+export class TypicoUsers {
+  // ✅ Static array (clinics data)
+  clinics = [
+    { name: 'PAEDIATRICS', type: 'GENERAL', gender: 'All', patientType: 'ALL', isActive: true, code: '24' },
+    { name: 'DIABETIC', type: 'MEDICAL', gender: 'All', patientType: 'ALL', isActive: true, code: '21' },
+    { name: 'DIRECT PHARMACY', type: 'DIRECT PHARMACY', gender: 'All', patientType: 'ALL', isActive: true, code: '76' },
+    { name: 'UROLOGY', type: 'GENERAL', gender: 'All', patientType: 'OUT', isActive: true, code: '22' },
+    { name: 'EYE', type: 'EYE', gender: 'All', patientType: 'ALL', isActive: true, code: '23' },
+    { name: 'SPECIALIST', type: 'GENERAL', gender: 'All', patientType: 'ALL', isActive: true, code: '25' },
+    { name: 'PHYSIOTHERAPY', type: 'GENERAL', gender: 'All', patientType: 'ALL', isActive: true, code: '26' },
+    { name: 'GYNECOLOGY', type: 'GYNECOLOGY', gender: 'All', patientType: 'ALL', isActive: true, code: '27' },
+    { name: 'DENTAL', type: 'DENTAL', gender: 'All', patientType: 'ALL', isActive: true, code: '28' },
+    { name: 'APPOINTMENT', type: 'APPOINTMENT', gender: 'All', patientType: 'ALL', isActive: true, code: '30' },
+  ];
 
-  users: any[] = [];
+  displayedColumns: string[] = ['name', 'type', 'gender', 'patientType', 'isActive', 'code', 'actions'];
+
+  // ✅ Form handling
   showForm = false;
-  editingUserId: number | null = null;
-  loading = false;
+  editingClinic: any = null;
+   sidebarOpen = true;
 
   formData = {
     name: '',
-    username: '',
-    email: '',
-    city: '',
-    phone: '',
-    website: ''
+    type: '',
+    gender: '',
+    patientType: '',
+    isActive: true,
+    code: '',
   };
-
-  ngOnInit() {
-    this.getUsers();
-  }
-
-  /** GET Users */
-  getUsers() {
-    this.loading = true;
-    this.http.get<any[]>(this.apiUrl)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (data) => this.users = data,
-        error: (err) => console.error('Error fetching users:', err),
-        complete: () => this.loading = false
-      });
-  }
 
   toggleForm() {
     this.showForm = !this.showForm;
     if (!this.showForm) this.resetForm();
   }
 
-  addUser() {
-    this.http.post<any>(this.apiUrl, this.formData)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (newUser) => {
-          newUser.id = this.users.length + 1;
-          this.users = [newUser, ...this.users];
-          this.toggleForm();
-        },
-        error: (err) => console.error('Error adding user:', err)
-      });
+  onSubmit() {
+    if (this.editingClinic) {
+      Object.assign(this.editingClinic, this.formData);
+    } else {
+      this.clinics = [{ ...this.formData }, ...this.clinics];
+    }
+    this.toggleForm();
   }
 
-  updateUser() {
-    if (this.editingUserId == null) return;
-    this.http.put<any>(`${this.apiUrl}/${this.editingUserId}`, this.formData)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (updatedUser) => {
-          const idx = this.users.findIndex(u => u.id === this.editingUserId);
-          if (idx > -1) {
-            this.users[idx] = {
-              ...updatedUser,
-              id: this.editingUserId,
-              address: { city: this.formData.city }
-            };
-          }
-          this.toggleForm();
-        },
-        error: (err) => console.error('Error updating user:', err)
-      });
-  }
-
-  onDelete(user: any) {
-    this.http.delete(`${this.apiUrl}/${user.id}`)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: () => this.users = this.users.filter(u => u.id !== user.id),
-        error: (err) => console.error('Error deleting user:', err)
-      });
-  }
-
-  onEdit(user: any) {
-    this.formData = {
-      name: user.name,
-      username: user.username,
-      email: user.email,
-      city: user.address?.city,
-      phone: user.phone,
-      website: user.website
-    };
-    this.editingUserId = user.id;
+  onEdit(clinic: any) {
+    this.formData = { ...clinic };
+    this.editingClinic = clinic;
     this.showForm = true;
   }
 
-  onSubmit() {
-    if (this.editingUserId) {
-      this.updateUser();
-    } else {
-      this.addUser();
-    }
+  onDelete(clinic: any) {
+    this.clinics = this.clinics.filter(c => c !== clinic);
   }
 
-  private resetForm() {
-    this.formData = { name: '', username: '', email: '', city: '', phone: '', website: '' };
-    this.editingUserId = null;
+   resetForm() {
+    this.formData = { name: '', type: '', gender: '', patientType: '', isActive: true, code: '' };
+    this.editingClinic = null;
   }
+
+  onAction(action: string, clinic: any) {
+  if (action === 'edit') {
+    this.onEdit(clinic);
+  } else if (action === 'delete') {
+    this.onDelete(clinic);
+  }
+}
+
+
+ toggleSidebar() {
+    this.sidebarOpen = !this.sidebarOpen;
+    console.log('Sidebar toggled:', this.sidebarOpen);
+  }
+
+// CreateUserId
+// CreateDate
 }

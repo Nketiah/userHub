@@ -1,128 +1,182 @@
 <div class="p-4">
-  <div class="flex justify-between items-center mb-4">
-    <h2>JsonPlaceholder Users</h2>
-    <button   mat-raised-button color="primary  btn-mb" (click)="toggleForm()" [disabled]="loading">
-      {{ showForm ? 'Back to Table' : 'Edit/Add' }}
-    </button>
+ 
+  <mat-toolbar color="primary" class="topbar">
+  <!-- Left: menu -->
+  <button mat-icon-button class="menu-btn" (click)="toggleSidebar()">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <!-- Center: user info in a row -->
+  <div class="user-info">
+    <div class="user-name">Nketiah Joseph</div>
+    <div class="user-meta">SYSTEM DEVELOPERS · Tue, Sep 23, 2025 12:26 PM</div>
   </div>
 
-  <!-- Spinner -->
-  <div *ngIf="loading" class="flex justify-center py-6">
-    <mat-spinner diameter="48"></mat-spinner>
+  <!-- Right: hospital badge with inline icons -->
+  <div class="right-wrap">
+    <div class="brand-badge">
+      <div class="brand-logo" aria-hidden="true"></div>
+      <div class="brand-text">LAPAZ COMMUNITY HOSPITAL - MAIN</div>
+
+      <div class="brand-icons">
+        <button mat-icon-button class="icon-btn" aria-label="Graph">
+          <mat-icon>show_chart</mat-icon>
+        </button>
+        <span class="vpipe" aria-hidden="true"></span>
+        <button mat-icon-button class="icon-btn" aria-label="Document">
+          <mat-icon>description</mat-icon>
+        </button>
+        <span class="vpipe" aria-hidden="true"></span>
+        <button mat-icon-button class="icon-btn" aria-label="Calendar">
+          <mat-icon>calendar_today</mat-icon>
+        </button>
+        <span class="vpipe" aria-hidden="true"></span>
+        <button mat-icon-button class="icon-btn badge-gray" matBadge="3" matBadgePosition="above after" aria-label="Messages">
+          <mat-icon>chat_bubble</mat-icon>
+        </button>
+        <span class="vpipe" aria-hidden="true"></span>
+        <button mat-icon-button class="icon-btn badge-gray" matBadge="9" matBadgePosition="above after" aria-label="Notifications">
+          <mat-icon>notifications</mat-icon>
+        </button>
+        <span class="vpipe" aria-hidden="true"></span>
+        <button mat-icon-button class="icon-btn avatar" aria-label="Profile">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+      </div>
+    </div>
   </div>
+  </mat-toolbar>
 
-  <!-- Form -->
-<mat-card *ngIf="showForm && !loading" class="p-4">
-  <form (ngSubmit)="onSubmit()" #userForm="ngForm" class="form-grid">
-
-    <!-- Name -->
-    <mat-form-field appearance="outline">
-      <mat-label>Name</mat-label>
-      <input matInput [(ngModel)]="formData.name" name="name" required #name="ngModel">
-      <mat-error *ngIf="name.invalid && name.touched">Name is required</mat-error>
-    </mat-form-field>
-
-    <!-- Username -->
-    <mat-form-field appearance="outline">
-      <mat-label>Username</mat-label>
-      <input matInput [(ngModel)]="formData.username" name="username" required #username="ngModel">
-      <mat-error *ngIf="username.invalid && username.touched">Username is required</mat-error>
-    </mat-form-field>
-
-    <!-- Email -->
-    <mat-form-field appearance="outline">
-      <mat-label>Email</mat-label>
-      <input matInput type="email" [(ngModel)]="formData.email" name="email" required email #email="ngModel">
-      <mat-error *ngIf="email.errors?.['required'] && email.touched">Email is required</mat-error>
-      <mat-error *ngIf="email.errors?.['email'] && email.touched">Enter a valid email</mat-error>
-    </mat-form-field>
-
-    <!-- City -->
-    <mat-form-field appearance="outline">
-      <mat-label>City</mat-label>
-      <input matInput [(ngModel)]="formData.city" name="city" required #city="ngModel">
-      <mat-error *ngIf="city.invalid && city.touched">City is required</mat-error>
-    </mat-form-field>
-
-    <!-- Phone -->
-    <mat-form-field appearance="outline">
-      <mat-label>Phone</mat-label>
-      <input matInput [(ngModel)]="formData.phone" name="phone" required #phone="ngModel">
-      <mat-error *ngIf="phone.invalid && phone.touched">Phone is required</mat-error>
-    </mat-form-field>
-
-    <!-- Website -->
-    <mat-form-field appearance="outline">
-      <mat-label>Website</mat-label>
-      <input matInput [(ngModel)]="formData.website" name="website" required #website="ngModel">
-      <mat-error *ngIf="website.invalid && website.touched">Website is required</mat-error>
-    </mat-form-field>
-
-    <!-- Buttons -->
-    <div class="form-actions">
-      <button mat-stroked-button type="button" (click)="toggleForm()">Cancel</button>
-      <button mat-raised-button color="accent" type="submit" [disabled]="userForm.invalid">
-        {{ editingUserId ? 'Update' : 'Save' }}
+  <!-- Sub header row: left title, right actions under toolbar -->
+  <div class="subbar">
+    <h2 class="t1">Clinics</h2>
+    <div class="subbar-actions">
+      <button mat-mini-fab class="act act-confirm" aria-label="Confirm">
+        <mat-icon>check</mat-icon>
+      </button>
+      <button mat-mini-fab class="act act-status" aria-label="Status">
+        <mat-icon>lens</mat-icon>
+      </button>
+      <button mat-mini-fab class="act act-doc" aria-label="Document">
+        <mat-icon>description</mat-icon>
+      </button>
+      <button mat-mini-fab class="act act-chat" aria-label="Chat">
+        <mat-icon>chat_bubble</mat-icon>
+      </button>
+      <button mat-mini-fab class="act act-search" aria-label="Search">
+        <mat-icon>search</mat-icon>
+      </button>
+      <button mat-mini-fab class="act act-settings" aria-label="Settings">
+        <mat-icon>settings</mat-icon>
+      </button>
+      <button mat-mini-fab class="act act-close" aria-label="Close">
+        <mat-icon>close</mat-icon>
       </button>
     </div>
-  </form>
-</mat-card>
-
-
-
-  <!-- Table -->
-  <div *ngIf="!showForm && !loading">
-    <table mat-table [dataSource]="users" class="mat-elevation-z2 w-full">
-
-      <!-- Name -->
-      <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef>Name</th>
-        <td mat-cell *matCellDef="let user">{{ user.name }}</td>
-      </ng-container>
-
-      <!-- Username -->
-      <ng-container matColumnDef="username">
-        <th mat-header-cell *matHeaderCellDef>Username</th>
-        <td mat-cell *matCellDef="let user">{{ user.username }}</td>
-      </ng-container>
-
-      <!-- Email -->
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef>Email</th>
-        <td mat-cell *matCellDef="let user">{{ user.email }}</td>
-      </ng-container>
-
-      <!-- City -->
-      <ng-container matColumnDef="city">
-        <th mat-header-cell *matHeaderCellDef>City</th>
-        <td mat-cell *matCellDef="let user">{{ user.address?.city || user.city }}</td>
-      </ng-container>
-
-      <!-- Phone -->
-      <ng-container matColumnDef="phone">
-        <th mat-header-cell *matHeaderCellDef>Phone</th>
-        <td mat-cell *matCellDef="let user">{{ user.phone }}</td>
-      </ng-container>
-
-      <!-- Website -->
-      <ng-container matColumnDef="website">
-        <th mat-header-cell *matHeaderCellDef>Website</th>
-        <td mat-cell *matCellDef="let user">
-          <a [href]="'http://' + user.website" target="_blank">{{ user.website }}</a>
-        </td>
-      </ng-container>
-
-      <!-- Actions -->
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef>Actions</th>
-        <td mat-cell *matCellDef="let user">
-          <button mat-stroked-button color="accent" (click)="onEdit(user)">Edit</button>
-          <button mat-raised-button color="warn" (click)="onDelete(user)">Delete</button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="['name','username','email','city','phone','website','actions']"></tr>
-      <tr mat-row *matRowDef="let row; columns: ['name','username','email','city','phone','website','actions'];"></tr>
-    </table>
   </div>
+ 
+<!-- <h2 class="t1">Clinics</h2> -->
+
+ 
+
+  <!-- ✅ Tabs -->
+   <mat-card>
+  <mat-tab-group mat-stretch-tabs="false" class="custom-tabs">
+    <!-- ✅ Tab 1: Clinics List -->
+    <mat-tab label="Clinics List">
+      <div class="mt-4">
+        <table mat-table [dataSource]="clinics" class="mat-elevation-z8   full-width-table">
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef>Name</th>
+            <td mat-cell *matCellDef="let clinic">{{ clinic.name }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="type">
+            <th mat-header-cell *matHeaderCellDef>Type</th>
+            <td mat-cell *matCellDef="let clinic">{{ clinic.type }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="gender">
+            <th mat-header-cell *matHeaderCellDef>Gender</th>
+            <td mat-cell *matCellDef="let clinic">{{ clinic.gender }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="patientType">
+            <th mat-header-cell *matHeaderCellDef>Patient Type</th>
+            <td mat-cell *matCellDef="let clinic">{{ clinic.patientType }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="isActive">
+            <th mat-header-cell *matHeaderCellDef>Is Active</th>
+            <td mat-cell *matCellDef="let clinic">
+              <mat-checkbox [checked]="clinic.isActive" disabled></mat-checkbox>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="code">
+            <th mat-header-cell *matHeaderCellDef>Code</th>
+            <td mat-cell *matCellDef="let clinic">{{ clinic.code }}</td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef class="actions-column">Actions</th>
+            <td mat-cell *matCellDef="let clinic" class="actions-column">
+              <mat-form-field appearance="outline" class="action-select">
+                <mat-select placeholder="Actions" (selectionChange)="onAction($event.value, clinic)">
+                  <mat-option value="edit">Edit</mat-option>
+                  <mat-option value="delete">Delete</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </mat-tab>
+
+    <!-- ✅ Tab 2: Add/Edit Clinic -->
+    <mat-tab label="Add/Edit Clinic">
+      <mat-card class="p-4 mt-4">
+        <div class="gname">general information</div>
+        <form (ngSubmit)="onSubmit()" #clinicForm="ngForm" class="form-grid">
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="formData.name" name="name" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Type</mat-label>
+            <input matInput [(ngModel)]="formData.type" name="type" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Gender</mat-label>
+            <input matInput [(ngModel)]="formData.gender" name="gender" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Patient Type</mat-label>
+            <input matInput [(ngModel)]="formData.patientType" name="patientType" required />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Code</mat-label>
+            <input matInput [(ngModel)]="formData.code" name="code" required />
+          </mat-form-field>
+
+          <div class="form-actions">
+            <button mat-stroked-button type="reset" (click)="resetForm()">Reset</button>
+            <button mat-raised-button color="accent" type="submit">
+              {{ editingClinic ? 'Update' : 'Save' }}
+            </button>
+          </div>
+        </form>
+      </mat-card>
+    </mat-tab>
+  </mat-tab-group>
+  </mat-card>
 </div>

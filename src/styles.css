@@ -7,3 +7,51 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   border-bottom: none !important;
 }
 
+/* Compact table rows */
+.mat-mdc-row,
+.mat-mdc-header-row {
+  --mat-table-row-item-container-height: 22px; /* shrink from 52px */
+  min-height: 22px !important;
+  height: 22px !important;
+}
+
+/* Compact cells */
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  padding: 4px 8px !important; /* shrink from 16px */
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* Make mat-form-field inside Actions smaller */
+.action-select .mat-mdc-form-field-infix {
+  min-height: 28px !important;
+  padding: 0 !important;
+}
+.action-select .mat-mdc-select-value {
+  font-size: 12px;
+}
+
+/* Force Actions column to be narrow */
+.actions-column {
+  width: 90px;             /* adjust smaller/larger as needed */
+  white-space: nowrap;     /* prevent wrapping */
+  text-align: center;
+}
+
+/* Make the select itself small */
+.action-select {
+  width: 100%;             /* fill column */
+  min-width: unset !important;
+  max-width: 80px;         /* keep compact */
+}
+
+.action-select .mat-mdc-form-field-infix {
+  padding: 0 !important;
+  min-height: 28px !important;
+}
+
+.action-select .mat-mdc-select-value {
+  font-size: 12px;
+}
+

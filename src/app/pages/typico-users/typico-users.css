@@ -1,3 +1,7 @@
+.badge-gray.mat-badge .mat-badge-content {
+  background: #9e9e9e;
+  color: #ffffff;
+}
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Two equal columns */
@@ -20,10 +24,314 @@
   }
 }
 
-.p-4 {
+.p-4xx {
     padding: 1rem; /* Tailwind's p-4 is 1rem */
 }
 
 .btn-mb {
     margin-bottom: 1rem;
 }
+
+
+.full-width-table {
+  width: 100%;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.form-actions {
+  grid-column: span 2;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+/* Make tabs smaller and aligned left */
+.custom-tabs .mat-tab-labels {
+  justify-content: flex-start !important;
+}
+
+.custom-tabs .mat-tab-label {
+  font-size: 13px;
+  min-width: auto;
+  /* padding: 4px 12px; */
+}
+
+/* Reduce spacing between table rows */
+.custom-table .mat-row,
+.custom-table .mat-header-row {
+  height: 10px; /* default ~ 48px */
+}
+
+.custom-table .mat-cell,
+.custom-table .mat-header-cell {
+  /* padding: 4px 8px; */
+  font-size: 13px;
+}
+
+/* ✅ Add borders to all cells and headers */
+.full-width-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.full-width-table th,
+.full-width-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+/* Optional: header background */
+.full-width-table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+}
+
+
+/* ✅ Compact table row spacing */
+.full-width-table th,
+.full-width-table td {
+  border: 1px solid #ddd;
+  padding: 4px 8px;   /* reduce padding (default is ~16px) */
+  font-size: 14px;    /* optional: slightly smaller text */
+}
+
+/* ✅ Reduce header height */
+.full-width-table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  padding: 2px 4px !important;  /* reduce padding */
+}
+
+/* ✅ Reduce row height */
+.mat-row, .mat-header-row {
+  height: 16px !important;  /* default ~48px */
+}
+
+
+.actions-select {
+  width: 120px;
+  margin: 0;
+}
+
+.actions-select .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
+/* Reduce row height */
+.mat-mdc-row,
+.mat-mdc-header-row {
+  height: 32px !important; /* default ~48px */
+}
+
+/* Reduce cell padding */
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  padding: 2px 8px !important; /* top-bottom = 2px */
+  font-size: 13px; /* make text slightly smaller */
+  line-height: 1.2;
+}
+
+/* Compact form-field inside action column */
+.action-select .mat-mdc-form-field-infix {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  min-height: 28px !important;
+}
+
+.action-select .mat-mdc-select-value {
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+/* Compact table header */
+.mat-mdc-header-row {
+  height: 32px !important;
+}
+.mat-mdc-header-cell {
+  padding: 2px 8px !important;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* ✅ Compact table body rows */
+.mat-mdc-row {
+  height: 32px !important;
+}
+.mat-mdc-cell {
+  padding: 2px 8px !important;
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* ✅ Compact action dropdown inside table */
+.action-select .mat-mdc-form-field-infix {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  min-height: 28px !important;
+}
+.action-select .mat-mdc-select-value {
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+/* Compact header row */
+.mat-mdc-header-row {
+  --mat-table-header-row-height: 32px; /* default ~56px */
+  min-height: 32px !important;
+  height: 32px !important;
+}
+
+/* Compact body rows */
+.mat-mdc-row {
+  --mat-table-row-item-container-height: 32px; /* default ~52px */
+  min-height: 32px !important;
+  height: 32px !important;
+}
+
+/* Shrink padding inside cells */
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  padding: 2px 8px !important; /* default ~16px */
+  font-size: 13px;
+  line-height: 1.2;
+}
+
+/* Optional: make form-field in Actions column smaller */
+.action-select .mat-mdc-form-field-infix {
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  min-height: 28px !important;
+}
+.action-select .mat-mdc-select-value {
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.gname{
+  text-transform: uppercase;
+  margin-top: 15px;
+  color: tomato;
+  font-size: 17px;
+  margin-bottom: 15px;
+}
+
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  --mat-toolbar-standard-height: 36px;
+  min-height: 36px;
+  /* background: #607d8b; */
+  background-color: #989898;
+  color: #fff;
+  padding: 0 1px;
+}
+
+.menu-btn mat-icon { color: #ffffff; font-size: 20px; }
+
+/* Center user info */
+.user-info {
+  flex: 1 1 auto;
+  text-align: center;
+  color: #000000;
+  line-height: 1.1;
+}
+.user-info { display: flex; flex-direction: row; justify-content: center; align-items: center; gap: 6px; }
+.user-info .user-name {
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: .3px;
+  text-transform: uppercase;
+}
+.user-info .user-meta {
+  font-size: 10px;
+  opacity: .9;
+}
+
+/* Right side brand and actions */
+.right-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* background: #0781c2; */
+  background-color: #258ca4;
+  align-self: stretch;   /* occupy full toolbar height */
+  padding: 0 6px 0 8px; /* breathing room */
+}
+
+.brand-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 6px;
+}
+.brand-badge .vpipe {
+  width: 2px; /* bolder separator */
+  align-self: stretch;
+  background: rgba(255,255,255,.6);
+}
+.brand-icons { display: flex; align-items: center; gap: 6px; }
+/* shrink icon buttons to fit 36px toolbar */
+.icon-btn.mat-mdc-icon-button { width: 28px; height: 28px; padding: 0; }
+.icon-btn .mat-mdc-button-touch-target { width: 28px; height: 28px; }
+.icon-btn mat-icon { color: #ffffff; font-size: 18px; }
+.icon-btn.avatar mat-icon { font-size: 22px; }
+/* keep badges compact and inside */
+.icon-btn.mat-badge .mat-badge-content { transform: translate(50%,-50%) scale(.85); }
+.brand-logo {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #b2ebf2; /* light circle as placeholder */
+}
+.brand-text {
+  font-size: 10px;
+  font-weight: 700;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.avatar {
+  margin-left: 10px;
+}
+
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Colored circular action icons */
+.act { --size: 28px; width: var(--size); height: var(--size); box-shadow: none; }
+.act mat-icon { font-size: 18px; line-height: 28px; }
+.act-confirm { background: #ff9800; color: #ffffff; }   /* orange check */
+.act-status { background: #03a9f4; color: #ffffff; }    /* blue dot */
+.act-doc    { background: #9e9e9e; color: #ffffff; }    /* grey doc */
+.act-chat   { background: #00bcd4; color: #ffffff; }    /* cyan chat */
+.act-search { background: #2196f3; color: #ffffff; }    /* blue search */
+.act-settings{ background: #607d8b; color: #ffffff; }   /* slate */
+.act-close  { background: #d32f2f; color: #ffffff; }    /* red close */
+/* use same background color for minus icon (in brand icons) as search */
+.minus-bg { background: #2196f3 !important; border-radius: 50%; }
+
+.t1 {
+  color: #5ac9e7;
+}
+
+/* sub header row under toolbar */
+.subbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 6px 8px 10px 8px;
+}
+.subbar .t1 { margin: 0; }
+.subbar-actions { display: flex; align-items: center; gap: 6px; }
