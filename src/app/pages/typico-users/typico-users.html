@@ -1,61 +1,63 @@
 <div class="p-4">
- 
+
   <mat-toolbar color="primary" class="topbar">
-  <!-- Left: menu -->
-  <button mat-icon-button class="menu-btn" (click)="toggleSidebar()">
-    <mat-icon>menu</mat-icon>
-  </button>
+    <!-- Left: menu -->
+    <button mat-icon-button class="menu-btn" (click)="toggleSidebar()">
+      <mat-icon>menu</mat-icon>
+    </button>
 
-  <!-- Center: user info in a row -->
-  <div class="user-info">
-    <div class="user-name">Nketiah Joseph</div>
-    <div class="user-meta">SYSTEM DEVELOPERS · Tue, Sep 23, 2025 12:26 PM</div>
-  </div>
+    <!-- Center: user info in a row -->
+    <div class="user-info">
+      <div class="user-name">Nketiah Joseph</div>
+      <div class="user-meta">SYSTEM DEVELOPERS · Tue, Sep 23, 2025 12:26 PM</div>
+    </div>
 
-  <!-- Right: hospital badge with inline icons -->
-  <div class="right-wrap">
-    <div class="brand-badge">
-      <div class="brand-logo" aria-hidden="true"></div>
-      <div class="brand-text">LAPAZ COMMUNITY HOSPITAL - MAIN</div>
+    <!-- Right: hospital badge with inline icons -->
+    <div class="right-wrap">
+      <div class="brand-badge">
+        <div class="brand-logo" aria-hidden="true"></div>
+        <div class="brand-text">LAPAZ COMMUNITY HOSPITAL - MAIN</div>
 
-      <div class="brand-icons">
-        <button mat-icon-button class="icon-btn" aria-label="Graph">
-          <mat-icon>show_chart</mat-icon>
-        </button>
-        <span class="vpipe" aria-hidden="true"></span>
-        <button mat-icon-button class="icon-btn" aria-label="Document">
-          <mat-icon>description</mat-icon>
-        </button>
-        <span class="vpipe" aria-hidden="true"></span>
-        <button mat-icon-button class="icon-btn" aria-label="Calendar">
-          <mat-icon>calendar_today</mat-icon>
-        </button>
-        <span class="vpipe" aria-hidden="true"></span>
-        <button mat-icon-button class="icon-btn badge-gray" matBadge="3" matBadgePosition="above after" aria-label="Messages">
-          <mat-icon>chat_bubble</mat-icon>
-        </button>
-        <span class="vpipe" aria-hidden="true"></span>
-        <button mat-icon-button class="icon-btn badge-gray" matBadge="9" matBadgePosition="above after" aria-label="Notifications">
-          <mat-icon>notifications</mat-icon>
-        </button>
-        <span class="vpipe" aria-hidden="true"></span>
-        <button mat-icon-button class="icon-btn avatar" aria-label="Profile">
-          <mat-icon>account_circle</mat-icon>
-        </button>
+        <div class="brand-icons">
+          <button mat-icon-button class="icon-btn" aria-label="Graph">
+            <mat-icon>show_chart</mat-icon>
+          </button>
+          <span class="vpipe" aria-hidden="true"></span>
+          <button mat-icon-button class="icon-btn" aria-label="Document">
+            <mat-icon>description</mat-icon>
+          </button>
+          <span class="vpipe" aria-hidden="true"></span>
+          <button mat-icon-button class="icon-btn" aria-label="Calendar">
+            <mat-icon>calendar_today</mat-icon>
+          </button>
+          <span class="vpipe" aria-hidden="true"></span>
+          <button mat-icon-button class="icon-btn badge-gray" matBadge="3" matBadgePosition="above after"
+            aria-label="Messages">
+            <mat-icon>chat_bubble</mat-icon>
+          </button>
+          <span class="vpipe" aria-hidden="true"></span>
+          <button mat-icon-button class="icon-btn badge-gray" matBadge="9" matBadgePosition="above after"
+            aria-label="Notifications">
+            <mat-icon>notifications</mat-icon>
+          </button>
+          <span class="vpipe" aria-hidden="true"></span>
+          <button mat-icon-button class="icon-btn avatar" aria-label="Profile">
+            <mat-icon>account_circle</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
   </mat-toolbar>
 
   <!-- Sub header row: left title, right actions under toolbar -->
   <div class="subbar">
-    <h2 class="t1">Clinics</h2>
+    <h2 class="t1">Clinics 123</h2>
     <div class="subbar-actions">
-      <button mat-mini-fab class="act act-confirm" aria-label="Confirm">
+      <button mat-mini-fab class="act act-confirm" aria-label="Confirm" (click)="onCheckAction()">
         <mat-icon>check</mat-icon>
       </button>
-      <button mat-mini-fab class="act act-status" aria-label="Status">
-        <mat-icon>lens</mat-icon>
+      <button mat-mini-fab class="act act-status" aria-label="Reset form" (click)="resetForm()">
+        <mat-icon>remove</mat-icon>
       </button>
       <button mat-mini-fab class="act act-doc" aria-label="Document">
         <mat-icon>description</mat-icon>
@@ -63,9 +65,47 @@
       <button mat-mini-fab class="act act-chat" aria-label="Chat">
         <mat-icon>chat_bubble</mat-icon>
       </button>
-      <button mat-mini-fab class="act act-search" aria-label="Search">
+      <!-- <button mat-mini-fab class="act act-search" aria-label="Search" matInput (keyup)="applyFilter($any($event.target).value)">
         <mat-icon>search</mat-icon>
-      </button>
+      </button> -->
+
+
+<!-- Search toggle -->
+<div class="search-container" *ngIf="!showSearch">
+  <button
+    mat-mini-fab
+    class="act act-search"
+    aria-label="Search"
+    (click)="toggleSearch()"
+  >
+    <mat-icon>search</mat-icon>
+  </button>
+</div>
+
+<!-- Search input -->
+<div class="search-container" *ngIf="showSearch">
+  <mat-form-field appearance="outline" class="search-field custom-search">
+    <mat-label>Search clinics</mat-label>
+    <input
+      matInput
+      #searchInput
+      (keyup)="applyFilter(searchInput.value)"
+      placeholder="Type to filter..."
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      aria-label="Close search"
+      (click)="toggleSearch()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+
+
+
+
       <button mat-mini-fab class="act act-settings" aria-label="Settings">
         <mat-icon>settings</mat-icon>
       </button>
@@ -74,109 +114,132 @@
       </button>
     </div>
   </div>
- 
-<!-- <h2 class="t1">Clinics</h2> -->
 
- 
+  <!-- <h2 class="t1">Clinics</h2> -->
+
+
 
   <!-- ✅ Tabs -->
-   <mat-card>
-  <mat-tab-group mat-stretch-tabs="false" class="custom-tabs">
-    <!-- ✅ Tab 1: Clinics List -->
+  <mat-card class="main-card">
+  <mat-tab-group mat-stretch-tabs="false" class="custom-tabs" [(selectedIndex)]="selectedTabIndex">
+      <!-- ✅ Tab 1: Clinics List -->
     <mat-tab label="Clinics List">
       <div class="mt-4">
-        <table mat-table [dataSource]="clinics" class="mat-elevation-z8   full-width-table">
+        <!-- <mat-form-field appearance="outline" class="btn-mb" style="width: 300px;">
+          <mat-label>Search clinics</mat-label>
+          <input matInput (keyup)="applyFilter($any($event.target).value)" placeholder="Type to filter..." />
+        </mat-form-field> -->
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8   full-width-table">
 
-          <ng-container matColumnDef="name">
-            <th mat-header-cell *matHeaderCellDef>Name</th>
-            <td mat-cell *matCellDef="let clinic">{{ clinic.name }}</td>
-          </ng-container>
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Name</th>
+              <td mat-cell *matCellDef="let clinic">{{ clinic.name }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="type">
-            <th mat-header-cell *matHeaderCellDef>Type</th>
-            <td mat-cell *matCellDef="let clinic">{{ clinic.type }}</td>
-          </ng-container>
+            <ng-container matColumnDef="type">
+              <th mat-header-cell *matHeaderCellDef>Type</th>
+              <td mat-cell *matCellDef="let clinic">{{ clinic.type }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="gender">
-            <th mat-header-cell *matHeaderCellDef>Gender</th>
-            <td mat-cell *matCellDef="let clinic">{{ clinic.gender }}</td>
-          </ng-container>
+            <ng-container matColumnDef="gender">
+              <th mat-header-cell *matHeaderCellDef>Gender</th>
+              <td mat-cell *matCellDef="let clinic">{{ clinic.gender }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="patientType">
-            <th mat-header-cell *matHeaderCellDef>Patient Type</th>
-            <td mat-cell *matCellDef="let clinic">{{ clinic.patientType }}</td>
-          </ng-container>
+            <ng-container matColumnDef="patientType">
+              <th mat-header-cell *matHeaderCellDef>Patient Type</th>
+              <td mat-cell *matCellDef="let clinic">{{ clinic.patientType }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="isActive">
-            <th mat-header-cell *matHeaderCellDef>Is Active</th>
-            <td mat-cell *matCellDef="let clinic">
-              <mat-checkbox [checked]="clinic.isActive" disabled></mat-checkbox>
-            </td>
-          </ng-container>
+            <ng-container matColumnDef="isActive">
+              <th mat-header-cell *matHeaderCellDef>Is Active</th>
+              <td mat-cell *matCellDef="let clinic">
+                <mat-checkbox [checked]="clinic.isActive" disabled></mat-checkbox>
+              </td>
+            </ng-container>
 
-          <ng-container matColumnDef="code">
-            <th mat-header-cell *matHeaderCellDef>Code</th>
-            <td mat-cell *matCellDef="let clinic">{{ clinic.code }}</td>
-          </ng-container>
+            <ng-container matColumnDef="code">
+              <th mat-header-cell *matHeaderCellDef>Code</th>
+              <td mat-cell *matCellDef="let clinic">{{ clinic.code }}</td>
+            </ng-container>
 
-          <ng-container matColumnDef="actions">
-            <th mat-header-cell *matHeaderCellDef class="actions-column">Actions</th>
-            <td mat-cell *matCellDef="let clinic" class="actions-column">
-              <mat-form-field appearance="outline" class="action-select">
-                <mat-select placeholder="Actions" (selectionChange)="onAction($event.value, clinic)">
-                  <mat-option value="edit">Edit</mat-option>
-                  <mat-option value="delete">Delete</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </td>
-          </ng-container>
+            <ng-container matColumnDef="actions">
+              <th mat-header-cell *matHeaderCellDef class="actions-column">Actions</th>
+              <td mat-cell *matCellDef="let clinic" class="actions-column">
+                <mat-form-field appearance="outline" class="action-select">
+                  <mat-select placeholder="Actions" (selectionChange)="onAction($event.value, clinic)">
+                    <mat-option value="edit">Edit</mat-option>
+                    <mat-option value="delete">Delete</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </td>
+            </ng-container>
 
 
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-      </div>
-    </mat-tab>
+        <mat-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+      </mat-tab>
 
-    <!-- ✅ Tab 2: Add/Edit Clinic -->
-    <mat-tab label="Add/Edit Clinic">
-      <mat-card class="p-4 mt-4">
-        <div class="gname">general information</div>
-        <form (ngSubmit)="onSubmit()" #clinicForm="ngForm" class="form-grid">
-          <mat-form-field appearance="fill">
-            <mat-label>Name</mat-label>
-            <input matInput [(ngModel)]="formData.name" name="name" required />
-          </mat-form-field>
+      <!-- ✅ Tab 2: Add/Edit Clinic -->
+      <mat-tab label="Add/Edit Clinic">
+        <mat-card class="p-4 mt-4 no-scroll no-shadow">
+          <div class="gname">General Information</div>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Type</mat-label>
-            <input matInput [(ngModel)]="formData.type" name="type" required />
-          </mat-form-field>
+          <form (ngSubmit)="onSubmit()" #clinicForm="ngForm" class="form-grid">
 
-          <mat-form-field appearance="outline">
-            <mat-label>Gender</mat-label>
-            <input matInput [(ngModel)]="formData.gender" name="gender" required />
-          </mat-form-field>
+            <!-- Name -->
+            <mat-form-field appearance="fill">
+              <mat-label>Name</mat-label>
+              <input matInput [(ngModel)]="formData.name" name="name" required />
+            </mat-form-field>
 
-          <mat-form-field appearance="outline">
-            <mat-label>Patient Type</mat-label>
-            <input matInput [(ngModel)]="formData.patientType" name="patientType" required />
-          </mat-form-field>
+            <!-- Type (Select) -->
+            <mat-form-field appearance="fill">
+              <mat-label>Type</mat-label>
+              <mat-select [(ngModel)]="formData.type" name="type" required>
+                <mat-option value="GENERAL">GENERAL</mat-option>
+                <mat-option value="MEDICAL">MEDICAL</mat-option>
+                <mat-option value="DIRECT PHARMACY">DIRECT PHARMACY</mat-option>
+                <mat-option value="GYNECOLOGY">GYNECOLOGY</mat-option>
+                <mat-option value="DENTAL">DENTAL</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <mat-form-field appearance="fill">
-            <mat-label>Code</mat-label>
-            <input matInput [(ngModel)]="formData.code" name="code" required />
-          </mat-form-field>
+            <!-- Gender (Select) -->
+            <mat-form-field appearance="fill">
+              <mat-label>Gender</mat-label>
+              <mat-select [(ngModel)]="formData.gender" name="gender" required>
+                 <mat-option value="All">All</mat-option>
+                <mat-option value="Male">Male</mat-option>
+                <mat-option value="Female">Female</mat-option>
+                <mat-option value="Both">Both</mat-option>
+              </mat-select>
+            </mat-form-field>
 
-          <div class="form-actions">
-            <button mat-stroked-button type="reset" (click)="resetForm()">Reset</button>
-            <button mat-raised-button color="accent" type="submit">
-              {{ editingClinic ? 'Update' : 'Save' }}
-            </button>
-          </div>
-        </form>
-      </mat-card>
-    </mat-tab>
-  </mat-tab-group>
+            <!-- Patient Type (Select) -->
+            <mat-form-field appearance="fill">
+              <mat-label>Patient Type</mat-label>
+              <mat-select [(ngModel)]="formData.patientType" name="patientType" required>
+                <mat-option value="ALL">ALL</mat-option>
+                <mat-option value="OUT">OUT</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <!-- Code -->
+            <mat-form-field appearance="fill">
+              <mat-label>Code</mat-label>
+              <input matInput [(ngModel)]="formData.code" name="code" required />
+            </mat-form-field>
+
+            <!-- Actions -->
+          
+          </form>
+        </mat-card>
+      </mat-tab>
+
+    </mat-tab-group>
   </mat-card>
 </div>

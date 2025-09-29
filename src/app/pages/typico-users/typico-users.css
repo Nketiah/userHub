@@ -323,6 +323,7 @@
 
 .t1 {
   color: #5ac9e7;
+  margin-left: -30px;
 }
 
 /* sub header row under toolbar */
@@ -331,7 +332,74 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 6px 8px 10px 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 10px;
+  /* padding: 6px 8px 10px 8px; */
 }
 .subbar .t1 { margin: 0; }
 .subbar-actions { display: flex; align-items: center; gap: 6px; }
+
+.main-card {
+  padding: 16px; 
+  margin: 16px;
+}
+
+.no-scroll {
+  overflow-y: hidden !important; /* remove vertical scroll */
+  max-height: none !important;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  box-shadow: none !important;
+  /* background-color: red; */
+}
+
+mat-card.no-shadow {
+  box-shadow: none !important;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-field {
+  width: 300px;
+}
+
+
+/* Make the search input smaller */
+.custom-search .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+
+.custom-search .mat-form-field-flex {
+  height: 26px; /* smaller height */
+  align-items: center;
+}
+
+/* Input text smaller */
+.custom-search input.mat-input-element {
+  padding: 4px 0;
+  font-size: 14px;
+}
+
+/* Change focus border & label color */
+.custom-search.mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-outline-thick {
+  color: #258ca4 !important;
+  stroke: #258ca4 !important;
+}
+
+.custom-search.mat-form-field-appearance-outline.mat-focused
+  .mat-form-field-label {
+  color: #258ca4 !important;
+}
+
+
+
+
